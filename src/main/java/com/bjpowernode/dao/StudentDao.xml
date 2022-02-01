@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DID Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.dao.StudentDao">
+    <select id="selectStudentById" resultType="com.bjpowernode.entity.Student" parameterType="integer">
+        <!-- 使用insert select update delete标签写sql-->
+        select id,name,email,age from student where id = #{id}
+    </select>
+
+    <select id="selectStudentByNameOrAge" resultType="com.bjpowernode.entity.Student">
+        <!-- 使用insert select update delete标签写sql-->
+        select id,name,email,age from student where name = #{myname} or age = #{myage}
+    </select>
+
+    <resultMap id="resultMapDemo" type="com.bjpowernode.entity.CustomObject">
+        <!--主键类型使用id标签-->
+        <id column="id" property="cid"/>
+        <!--非主键类型使用result标签-->
+        <result column="name" property="cname"/>
+        <result column="email" property="email"/>
+        <result column="age" property="age"/>
+
+    </resultMap>
+
+    <select id="selectCustomById" resultMap="resultMapDemo">
+        <!-- 使用insert select update delete标签写sql-->
+        select id,name,email,age from student where id = #{id}
+    </select>
+
+    <insert id="insertStudent">
+        insert into student values (#{id},#{name},#{email},#{age})
+    </insert>
+
+    <select id="selectStudentPagehelper" resultType="com.bjpowernode.entity.Student">
+        <!-- 使用insert select update delete标签写sql-->
+        select id,name,email,age from student order by id
+    </select>
+
+
+</mapper>
